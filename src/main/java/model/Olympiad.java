@@ -273,6 +273,57 @@ public class Olympiad{
         return res;
     }
 
+    //В условиях предыдущей задачи выведите в порядке возрастания номера школ, из которых наибольшее количество
+    // участников стало победителями олимпиады. В этой задаче значение числа баллов одного участника может быть до 106.
+    public Map<Integer, ArrayList<Pupil>> winSchools(){
+        Map<Integer, ArrayList<Pupil>> res = new HashMap<>();
+        for (Map.Entry<Integer, ArrayList<Pupil>> para : pupilsSchool.entrySet()) {
+            int max = 0;
+            for (int i = 0; i < para.getValue().size(); i++) {
+                if (para.getValue().get(i).getPoint()>max)
+                    max = para.getValue().get(i).getPoint();
+            }
+            for (int i = 0; i < para.getValue().size(); i++) {
+                if (para.getValue().get(i).getPoint() == max) {
+                    if (!res.containsKey(para.getKey()))
+                        res.put(para.getKey(), new ArrayList<>());
+                    res.get(para.getKey()).add(para.getValue().get(i));
+                }
+            }
+        }
+        return res;
+    }
+
+    public ArrayList<Integer> sortedWinSchools(){
+        Map<Integer, ArrayList<Pupil>> winSchools = winSchools();
+        ArrayList<Integer> res = new ArrayList<>();
+        int maxSize = 0;
+        for (Map.Entry<Integer, ArrayList<Pupil>> item : winSchools.entrySet()) {
+            int countPupil = 0;
+            for (int i = 0; i < item.getValue().size(); i++) {
+                if (item.getValue().get(i).getPoint()<106)
+                    countPupil ++;
+            }
+            if (countPupil>maxSize){
+                maxSize = countPupil;
+                System.out.println(maxSize);
+            }
+        }
+        for (Map.Entry<Integer, ArrayList<Pupil>> item : winSchools.entrySet()) {
+            if (item.getValue().size() == maxSize)
+                res.add(item.getKey());
+        }
+        res.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return Integer.compare(o1, o2);
+            }
+        });
+        return res;
+    }
+
+
+
 
     /*public static void write(ArrayList<Pupil> arr, String fileNameOut) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileNameOut))) {

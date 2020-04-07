@@ -11,7 +11,7 @@ public class Program {
     public static void main(String[] args) {
 
         try {
-            Olympiad olympiad = new Olympiad("data.csv");
+            Olympiad olympiad = new Olympiad("data1.csv");
             System.out.println(olympiad);
 
             Map<Integer, ArrayList<Pupil>> winners = olympiad.winnersByLevel();
@@ -49,6 +49,12 @@ public class Program {
 
             ArrayList<Integer> sortSchool = olympiad.numSchool();
             System.out.println(sortSchool);
+
+            Map<Integer, ArrayList<Pupil>> r = olympiad.winSchools();
+            System.out.println(r);
+
+            ArrayList<Integer> sortedWinSchools = olympiad.sortedWinSchools();
+            System.out.println(sortedWinSchools + "sortedWinSchools");
 
             /*Pupil[] allPupil = olympiad.allPupil();
             for (Pupil pupil:allPupil) {
